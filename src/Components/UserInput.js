@@ -1,5 +1,4 @@
 import React from "react";
-import { render } from "react-dom";
 
 const userInput = (props) => {
   const style = {
@@ -16,7 +15,7 @@ const userInput = (props) => {
         type="text"
         style={style}
         onChange={props.changed}
-        placeHolder={props.placeholder}
+        placeholder={props.placeholder}
         onFocus={props.onFocus}
         onBlur={props.onBlur}
       />
