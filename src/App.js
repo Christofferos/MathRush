@@ -5,14 +5,20 @@ import Radium, { StyleRoot } from "radium";
 import UserInput from "./Components/UserInput";
 import UserOutput from "./Components/UserOutput";
 import UserFinishButton from "./Components/UserFinishButton";
+import Playground from "./Components/Playground";
 
 class App extends Component {
+  testTime = 6;
   state = {
     username: "Write your name",
     usernameLen: 0,
     usernameColor: "white",
     placeholder: "...",
     showUsernameCard: true,
+    opperationSelected: "ADDITION",
+    startTest: false,
+    time: this.testTime,
+    newNumber: true,
   };
 
   usernameChangedHandler = (event) => {
@@ -61,8 +67,57 @@ class App extends Component {
     }
   };
 
+  opperationHandler = (event) => {
+    if (!this.state.startTest) {
+      this.setState({
+        opperationSelected: event.target.innerText,
+      });
+    }
+  };
+
+  toggleGameStatusHandler = (event) => {
+    if (!this.state.startTest) {
+      this.setState({
+        startTest: true,
+      });
+    } else {
+      setTimeout(() => {
+        this.setState({
+          startTest: false,
+          time: this.testTime,
+        });
+      }, 3000);
+    }
+  };
+
+  countdownHandler = () => {
+    if (this.state.time > 0) {
+      this.setState({
+        time: this.state.time - 1,
+      });
+    } else if (this.state.time === 0) {
+      this.setState({
+        time: this.testTime,
+      });
+      console.log("Time: " + this.state.time);
+    }
+  };
+
+  newNumberHandler = () => {
+    if (this.state.newNumber) {
+      this.setState({
+        newNumber: false,
+      });
+    } else {
+      this.setState({
+        newNumber: true,
+      });
+    }
+  };
+
   render() {
     let usernameCard = null;
+    let mainPage = null;
     if (this.state.showUsernameCard) {
       usernameCard = (
         <div className="card">
@@ -77,13 +132,32 @@ class App extends Component {
           <UserFinishButton onClick={(event) => this.usernameEnteredHandler(event, this.state.usernameLen)} />
         </div>
       );
+    } else {
+      mainPage = (
+        <div className="mainPageContainer">
+          <div className="usernameDisplay">{this.state.username}</div>
+          <Playground
+            opperation={this.state.opperationSelected}
+            gameStarted={this.state.startTest}
+            toggleGameStatus={this.toggleGameStatusHandler}
+            time={this.state.time}
+            countdown={this.countdownHandler}
+            newNumber={this.state.newNumber}
+            newNumberHandler={this.newNumberHandler}
+          />
+          <div className="highscores">Highscores</div>
+        </div>
+      );
     }
 
     return (
       <StyleRoot>
-        <Toolbar />
+        <Toolbar onClick={(event) => this.opperationHandler(event)} />
         <div className="App">
-          <div className="container">{usernameCard}</div>
+          <div className="container">
+            {usernameCard}
+            {mainPage}
+          </div>
         </div>
       </StyleRoot>
     );

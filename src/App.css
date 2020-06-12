@@ -32,3 +32,33 @@ html {
   border-radius: 5px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
+
+.mainPageContainer {
+  display: block;
+  margin: auto;
+  width: 30em;
+  height: 85%;
+  background-color: #292929;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.usernameDisplay {
+  font-size: 20px;
+  font-weight: bold;
+  color: goldenrod;
+  padding: 10px;
+}
+
+.playground {
+  font-size: 40px;
+  font-weight: bolder;
+  padding: 0% 0% 10% 0%;
+}
+
+.highscores {
+  font-size: 30px;
+  font-weight: bolder;
+  position: relative;
+  top: 35%;
+}
