@@ -102,6 +102,11 @@ const playground = (props) => {
     } else if (props.opperation === "DIVISION" || props.opperation === "DIV") {
       operationSymb = <span> / </span>;
       result = firstNr / secondNr;
+      if (result === 1 || result === 2 || result === 3 || result === 4) {
+        result = Math.trunc(result);
+      } else {
+        result = result.toFixed(1);
+      }
     }
 
     let checkAnswerHandler = (event) => {
@@ -111,6 +116,7 @@ const playground = (props) => {
         props.newNumberHandler();
         points = points + 1;
         result = -1;
+        event.target.value = "";
       }
     };
 
@@ -124,6 +130,7 @@ const playground = (props) => {
         <span>Points: {points}</span>
       </div>
     );
+    console.log(result);
   }
 
   return (

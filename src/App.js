@@ -118,6 +118,7 @@ class App extends Component {
   render() {
     let usernameCard = null;
     let mainPage = null;
+    let highscores = null;
     if (this.state.showUsernameCard) {
       usernameCard = (
         <div className="card">
@@ -133,6 +134,9 @@ class App extends Component {
         </div>
       );
     } else {
+      if (!this.state.startTest) {
+        highscores = <div className="highscores">Highscores</div>;
+      }
       mainPage = (
         <div className="mainPageContainer">
           <div className="usernameDisplay">{this.state.username}</div>
@@ -145,7 +149,7 @@ class App extends Component {
             newNumber={this.state.newNumber}
             newNumberHandler={this.newNumberHandler}
           />
-          <div className="highscores">Highscores</div>
+          {highscores}
         </div>
       );
     }
