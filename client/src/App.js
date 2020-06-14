@@ -7,6 +7,11 @@ import UserOutput from "./Components/UserOutput";
 import UserFinishButton from "./Components/UserFinishButton";
 import Playground from "./Components/Playground";
 
+// import "whatwg-fetch";
+// let express = require("express");
+// let additionRouter = require("./../../backend/routes/addition.js");
+// let app = express();
+
 class App extends Component {
   testTime = 6;
   state = {
@@ -19,6 +24,23 @@ class App extends Component {
     startTest: false,
     time: this.testTime,
     newNumber: true,
+    error: "",
+    databaseHighscores: [],
+  };
+
+  componentDidMount() {
+    this.callAPI();
+  }
+
+  callAPI = () => {
+    // fetch returns a promise.
+    fetch("/api/v1/additions") // api/v1/additions
+      .then((res) => res.json())
+      .then((additions) => {
+        this.setState({ databaseHighscores: additions.data.additions }, () =>
+          console.log("Additions fetched..", additions)
+        );
+      });
   };
 
   usernameChangedHandler = (event) => {
@@ -135,7 +157,40 @@ class App extends Component {
       );
     } else {
       if (!this.state.startTest) {
-        highscores = <div className="highscores">Highscores</div>;
+        function descendingScores(a, b) {
+          if (a.score < b.score) {
+            return 1;
+          } else if (a.score > b.score) {
+            return -1;
+          } else {
+            return 0;
+          }
+        }
+
+        let highestScoresArr = [];
+        this.state.databaseHighscores.map((addition) => {
+          let row = new Object();
+          row.score = addition.score;
+          row.username = addition.username;
+          highestScoresArr.push(row);
+        });
+        highestScoresArr = highestScoresArr.sort(descendingScores);
+        let result = [];
+
+        highscores = (
+          <div className="highscores">
+            <h1>Highscores</h1>
+            {
+              <ul className="highscoreRows">
+                {this.state.databaseHighscores.map((addition) => (
+                  <li key={addition.id}>
+                    {addition.username} - {addition.score} points
+                  </li>
+                ))}
+              </ul>
+            }
+          </div>
+        );
       }
       mainPage = (
         <div className="mainPageContainer">
