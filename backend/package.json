@@ -4,9 +4,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "client-install": "cd ../client && npm install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production node server",
-    "dev": "nodemon server"
+    "server": "nodemon server.js",
+    "client": "cd ../client && npm run start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ../client && npm run build --prefix ../client"
   },
   "author": "",
   "license": "ISC",
