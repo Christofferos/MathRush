@@ -30,23 +30,52 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.fetchFromAPI();
+    this.fetchFromAPI("additions");
   }
 
-  fetchFromAPI = () => {
+  fetchFromAPI = (opperationType) => {
     // fetch returns a promise.
-    fetch("/api/v1/additions") // api/v1/additions
-      .then((res) => res.json())
-      .then((additions) => {
-        this.setState({ databaseHighscores: additions.data.additions }, () =>
-          console.log("Additions fetched..", additions)
-        );
-      });
+    if (opperationType === "additions") {
+      fetch("/api/v1/" + opperationType)
+        .then((res) => res.json())
+        .then((additions) => {
+          this.setState({ databaseHighscores: additions.data.additions }, () =>
+            // console.log("Additions fetched..", additions)
+            console.log("Additions fetched..")
+          );
+        });
+    } else if (opperationType === "subtractions") {
+      fetch("/api/v1/" + opperationType)
+        .then((res) => res.json())
+        .then((subtractions) => {
+          this.setState({ databaseHighscores: subtractions.data.subtractions }, () =>
+            // console.log("Subtractions fetched..", subtractions)
+            console.log("Subtractions fetched..")
+          );
+        });
+    } else if (opperationType === "multiplications") {
+      fetch("/api/v1/" + opperationType)
+        .then((res) => res.json())
+        .then((multiplications) => {
+          this.setState({ databaseHighscores: multiplications.data.multiplications }, () =>
+            // console.log("Multiplications fetched..", multiplications)
+            console.log("Multiplications fetched..")
+          );
+        });
+    } else if (opperationType === "divisions") {
+      fetch("/api/v1/" + opperationType)
+        .then((res) => res.json())
+        .then((divisions) => {
+          this.setState({ databaseHighscores: divisions.data.divisions }, () =>
+            // console.log("Divisions fetched..", divisions)
+            console.log("Divisions fetched..")
+          );
+        });
+    }
   };
 
-  postToAPI = () => {
-    // const data = { username: username, score: Number(score) };
-    fetch("/api/v1/additions", {
+  postToAPI = (opperationType) => {
+    fetch("/api/v1/" + opperationType, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -68,8 +97,8 @@ class App extends Component {
       });
   };
 
-  deleteFromAPI = (id) => {
-    fetch("/api/v1/additions/" + id, {
+  deleteFromAPI = (opperationType, id) => {
+    fetch("/api/v1/" + opperationType + "/" + id, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -123,11 +152,35 @@ class App extends Component {
     }
   };
 
+  identifyOperationHandler = () => {
+    let operationType = "";
+    if (this.state.opperationSelected === "ADDITION" || this.state.opperationSelected === "ADD")
+      operationType = "additions";
+    if (this.state.opperationSelected === "SUBTRACTION" || this.state.opperationSelected === "SUB")
+      operationType = "subtractions";
+    if (this.state.opperationSelected === "MULTIPLICATION" || this.state.opperationSelected === "MULT")
+      operationType = "multiplications";
+    if (this.state.opperationSelected === "DIVISION" || this.state.opperationSelected === "DIV")
+      operationType = "divisions";
+    return operationType;
+  };
+
+  identifyOperationHandlerParam = (opperation) => {
+    let operationType = "";
+    if (opperation === "ADDITION" || opperation === "ADD") operationType = "additions";
+    if (opperation === "SUBTRACTION" || opperation === "SUB") operationType = "subtractions";
+    if (opperation === "MULTIPLICATION" || opperation === "MULT") operationType = "multiplications";
+    if (opperation === "DIVISION" || opperation === "DIV") operationType = "divisions";
+    return operationType;
+  };
+
   opperationHandler = (event) => {
     if (!this.state.startTest) {
       this.setState({
         opperationSelected: event.target.innerText,
       });
+      let operationType = this.identifyOperationHandlerParam(event.target.innerText);
+      this.fetchFromAPI(operationType); // Set type of highscore list to display.
     }
   };
 
@@ -149,8 +202,9 @@ class App extends Component {
     });
     // Post new record and delete the old one for this user.
     if (max < this.state.points) {
-      this.postToAPI();
-      this.deleteFromAPI(id);
+      let operationType = this.identifyOperationHandler();
+      this.postToAPI(operationType);
+      this.deleteFromAPI(operationType, id);
     }
   };
 
@@ -229,10 +283,10 @@ class App extends Component {
         }
 
         let highestScoresArr = [];
-        this.state.databaseHighscores.map((addition) => {
+        this.state.databaseHighscores.map((operation) => {
           let row = {};
-          row.score = addition.score;
-          row.username = addition.username;
+          row.score = operation.score;
+          row.username = operation.username;
           highestScoresArr.push(row);
           return highestScoresArr;
         });

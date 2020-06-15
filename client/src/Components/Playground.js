@@ -33,7 +33,8 @@ const playground = (props) => {
     fontSize: "20px",
     border: "none",
     ":hover": {
-      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+      boxShadow: "0 20px 20px rgba(0, 0, 0, 0.3)",
+      color: "white",
     },
   };
   const h6Style = {
@@ -68,7 +69,8 @@ const playground = (props) => {
     }
     if (props.time === 0) {
       clearInterval(countdownInterval);
-      props.toggleGameStatus();
+      const score = points;
+      props.toggleGameStatus(score);
       activateTimer = true;
     }
     timer = (
@@ -130,7 +132,7 @@ const playground = (props) => {
         <span>Points: {points}</span>
       </div>
     );
-    console.log(result);
+    // console.log(result);
   }
 
   return (

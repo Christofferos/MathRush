@@ -13,6 +13,9 @@ connectDB();
 
 // Route files
 const additions = require("./routes/addition.js");
+const subtractions = require("./routes/subtraction.js");
+const multiplications = require("./routes/multiplication.js");
+const divisions = require("./routes/division.js");
 
 const app = express();
 
@@ -24,6 +27,9 @@ if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 
 // Mount routers (append route to additions)
 app.use("/api/v1/additions", additions);
+app.use("/api/v1/subtractions", subtractions);
+app.use("/api/v1/multiplications", multiplications);
+app.use("/api/v1/divisions", divisions);
 
 app.use(errorHandler);
 

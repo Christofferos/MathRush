@@ -18,8 +18,16 @@
   font-weight: bold;
 }
 
+.Desktop:hover {
+  color: gold;
+}
+
 .Mobile {
   display: none;
+}
+
+.Mobile:hover {
+  color: gold;
 }
 
 .logoDiv {

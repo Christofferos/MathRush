@@ -58,7 +58,7 @@ html {
 
 .highscores {
   position: relative;
-  top: 20%;
+  top: 0%; /* 20%*/
 }
 
 ul {
