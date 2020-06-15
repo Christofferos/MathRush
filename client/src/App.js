@@ -26,13 +26,14 @@ class App extends Component {
     newNumber: true,
     error: "",
     databaseHighscores: [],
+    points: 0,
   };
 
   componentDidMount() {
-    this.callAPI();
+    this.fetchFromAPI();
   }
 
-  callAPI = () => {
+  fetchFromAPI = () => {
     // fetch returns a promise.
     fetch("/api/v1/additions") // api/v1/additions
       .then((res) => res.json())
@@ -41,6 +42,39 @@ class App extends Component {
           console.log("Additions fetched..", additions)
         );
       });
+  };
+
+  postToAPI = () => {
+    // const data = { username: username, score: Number(score) };
+    fetch("/api/v1/additions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.username,
+        score: Number(this.state.points),
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .then(() => {
+        this.setState({ points: 0 });
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  };
+
+  deleteFromAPI = (id) => {
+    fetch("/api/v1/additions/" + id, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   };
 
   usernameChangedHandler = (event) => {
@@ -97,7 +131,30 @@ class App extends Component {
     }
   };
 
-  toggleGameStatusHandler = (event) => {
+  gameOverHandler = (score) => {
+    this.setState({
+      points: score,
+    });
+
+    let max = 0;
+    let id;
+    this.state.databaseHighscores.map((addition) => {
+      if (addition.username === this.state.username) {
+        if (max < addition.score) {
+          id = addition._id;
+          max = addition.score;
+        }
+      }
+      return;
+    });
+    // Post new record and delete the old one for this user.
+    if (max < this.state.points) {
+      this.postToAPI();
+      this.deleteFromAPI(id);
+    }
+  };
+
+  toggleGameStatusHandler = (score) => {
     if (!this.state.startTest) {
       this.setState({
         startTest: true,
@@ -108,10 +165,13 @@ class App extends Component {
           startTest: false,
           time: this.testTime,
         });
+        // Game over..
+        this.gameOverHandler(score);
       }, 3000);
     }
   };
 
+  // NOT IN USE
   countdownHandler = () => {
     if (this.state.time > 0) {
       this.setState({
@@ -157,6 +217,7 @@ class App extends Component {
       );
     } else {
       if (!this.state.startTest) {
+        /* Display highscores */
         function descendingScores(a, b) {
           if (a.score < b.score) {
             return 1;
@@ -169,20 +230,34 @@ class App extends Component {
 
         let highestScoresArr = [];
         this.state.databaseHighscores.map((addition) => {
-          let row = new Object();
+          let row = {};
           row.score = addition.score;
           row.username = addition.username;
           highestScoresArr.push(row);
+          return highestScoresArr;
         });
+
         highestScoresArr = highestScoresArr.sort(descendingScores);
-        let result = [];
+        const uniqueNamesArr = [];
+        const result = [];
+
+        for (let i = 0; i < highestScoresArr.length; i++) {
+          if (!uniqueNamesArr.includes(highestScoresArr[i].username)) {
+            uniqueNamesArr.push(highestScoresArr[i].username);
+            let row = {};
+            row.score = highestScoresArr[i].score;
+            row.username = highestScoresArr[i].username;
+            row.id = i;
+            result.push(row);
+          }
+        }
 
         highscores = (
           <div className="highscores">
             <h1>Highscores</h1>
             {
               <ul className="highscoreRows">
-                {this.state.databaseHighscores.map((addition) => (
+                {result.map((addition) => (
                   <li key={addition.id}>
                     {addition.username} - {addition.score} points
                   </li>
@@ -203,6 +278,7 @@ class App extends Component {
             countdown={this.countdownHandler}
             newNumber={this.state.newNumber}
             newNumberHandler={this.newNumberHandler}
+            gameOverHandler={(points) => this.gameOverHandler(points)}
           />
           {highscores}
         </div>
