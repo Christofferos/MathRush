@@ -17,6 +17,9 @@ Let's the users improve their mathematical calculation speed by doing exercises 
 
 ![Woops, image could not be found.](./readmeImages/mainDisplay2.png)
 
+### Test the static version here (Without database)
+https://christofferos.github.io/MathRush/
+
 ### Video showing the application:
 #### Youtube:
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/COzfBStLJ-E/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
