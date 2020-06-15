@@ -18,4 +18,6 @@ Let's the users improve their mathematical calculation speed by doing exercises 
 ![Woops, image could not be found.](./readmeImages/mainDisplay2.png)
 
 ### Video showing the application:
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/https://youtu.be/COzfBStLJ-E/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+
 https://youtu.be/COzfBStLJ-E
