@@ -5,7 +5,7 @@ Let's the users improve their mathematical calculation speed by doing exercises 
 1. Clone down repo, cd into 'backend' folder.
 2. Run the command: npm i && npm run client-install
 3. Add a file with name: 'config.env' in the config folder AND add these fields: <br>
-![Woops, image could not be found.](./readmeImages/info.png)
+![Woops, image could not be found.](./readmeImages/info.png) <br>
 (You will have to assign your own MONGO_URI to a local database here).
 3. Run the command: npm run dev
 4. Now the client should open up in localhost:3000 and server should run on localhost:5000.
