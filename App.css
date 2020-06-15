@@ -1,0 +1,75 @@
+*,
+:before,
+:after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #222;
+  color: white;
+}
+
+.App {
+  text-align: center;
+}
+
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  display: block;
+  margin: auto;
+  padding: 3em;
+  width: 30em;
+  height: 18em;
+  background-color: #292929;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.mainPageContainer {
+  display: block;
+  margin: auto;
+  width: 30em;
+  height: 85%;
+  background-color: #292929;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.usernameDisplay {
+  font-size: 20px;
+  font-weight: bold;
+  color: goldenrod;
+  padding: 10px;
+}
+
+.playground {
+  font-size: 40px;
+  font-weight: bolder;
+  padding: 0% 0% 10% 0%;
+}
+
+.highscores {
+  position: relative;
+  top: 0%; /* 20%*/
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  width: 50%;
+  margin: auto;
+}
+
+li {
+  font-size: 1rem;
+  line-height: 2rem;
+  border-bottom: 1px dotted #777;
+}
