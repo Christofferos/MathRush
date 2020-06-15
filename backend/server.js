@@ -4,9 +4,6 @@ const morgan = require("morgan");
 const colors = require("colors");
 const errorHandler = require("./middleware/error.js");
 const connectDB = require("./config/db.js");
-// For Heroku
-const cors = require("cors");
-const path = require("path");
 
 // Load env variables
 dotenv.config({ path: "./config/config.env" });
@@ -22,8 +19,6 @@ const divisions = require("./routes/division.js");
 
 const app = express();
 
-app.use(cors());
-
 // Body parser
 app.use(express.json());
 
@@ -37,11 +32,6 @@ app.use("/api/v1/multiplications", multiplications);
 app.use("/api/v1/divisions", divisions);
 
 app.use(errorHandler);
-
-app.use(express.static(path.join(__dirname, "../build")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../build"));
-});
 
 const PORT = process.env.PORT || 5000;
 
