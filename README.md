@@ -22,8 +22,9 @@ https://christofferos.github.io/MathRush/
 
 ### Video showing the application:
 #### Youtube:
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/COzfBStLJ-E/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
-<br>LINK: https://youtu.be/COzfBStLJ-E
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/COzfBStLJ-E/0.jpg)](https://www.youtube.com/watch?v=COzfBStLJ-E)
+<br>LINK: https://www.youtube.com/watch?v=COzfBStLJ-E
+
 <br>
 #### GIF
 ![](readmeImages/previewVid.gif)
