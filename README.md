@@ -1,5 +1,5 @@
 # MathRush
-Let's the users improve their mathematical calculation speed by doing exercises on basic operations. 
+Allows the users to improve their mathematical calculation speed by doing exercises on basic operations. 
 
 ## How to run the website locally:
 1. Clone down repo, cd into 'backend' folder.
