@@ -1,6 +1,9 @@
 # MathRush
 Allows the users to improve their mathematical calculation speed by doing exercises on basic operations. 
 
+### Try static version here (Without database)
+https://christofferos.github.io/MathRush/
+
 ## How to run the website locally:
 1. Clone down repo, cd into 'backend' folder.
 2. Run the command: npm i && npm run client-install.
@@ -16,9 +19,6 @@ Allows the users to improve their mathematical calculation speed by doing exerci
 ![Woops, image could not be found.](./readmeImages/mainDisplay.png)
 
 ![Woops, image could not be found.](./readmeImages/mainDisplay2.png)
-
-### Test the static version here (Without database)
-https://christofferos.github.io/MathRush/
 
 ### Video showing the application:
 #### Youtube:
